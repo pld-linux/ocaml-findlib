@@ -2,7 +2,7 @@ Summary:	OCaml module manager
 Summary(pl):	Zarz±dca modu³ów OCamla
 Name:		ocaml-findlib
 Version:	0.8.1
-Release:	1
+Release:	2
 License:	distributable
 Group:		Development/Tools
 Vendor:		Gerd Stolpmann <gerd@gerd-stolpmann.de>
@@ -79,7 +79,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
 cp -a $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib \
 	$RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
 rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.*
+echo 'ldconf = "ignore"' >> $RPM_BUILD_ROOT%{_sysconfdir}/ocamlfind.conf
 
+ln -s ../stublibs $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/libexec
 ln -s ../stublibs $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/stublibs
 
 %clean
