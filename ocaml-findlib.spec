@@ -1,7 +1,7 @@
 Summary:	OCaml module manager
 Summary(pl):	Zarz±dca modu³ów OCamla
 Name:		ocaml-findlib
-Version:	0.6.2
+Version:	0.7.2
 Release:	1
 License:	distributable
 Group:		Development/Tools
@@ -49,7 +49,7 @@ przechowywana metainformacja.
 Ten pakiet zawiera biblioteki i skompilowane interfejsy findliba.
 
 %prep
-%setup -q -n findlib
+%setup -q -n findlib-%{version}
 
 %build
 ./configure \
@@ -79,15 +79,14 @@ cp -a $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib \
 	$RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
 rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.*
 
-#doc/QUICKSTART is also in html
-gzip -9nf README LICENSE TODO
+ln -s ../stublibs $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/stublibs
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz doc/html
+%doc README LICENSE doc/html
 %attr(755,root,root) %{_bindir}/*
 %config %{_sysconfdir}/ocamlfind.conf
 %{_libdir}/ocaml/site-lib
