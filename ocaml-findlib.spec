@@ -8,6 +8,7 @@ Group:		Development/Tools
 Vendor:		Gerd Stolpmann <gerd@gerd-stolpmann.de>
 URL:		http://www.ocaml-programming.de/programming/page-4.html
 Source0:	http://www.ocaml-programming.de/packages/findlib-%{version}.tar.gz
+# Source0-md5:	29c27923ec7a00bc54c351fd49282488
 BuildRequires:	ocaml
 BuildRequires:	ocaml-camlp4
 BuildRequires:	ocaml-labltk-devel
