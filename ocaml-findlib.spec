@@ -71,14 +71,14 @@ rm -rf $RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.mli
 
 # in PLD only META files are stored in site-lib/pkg
-(sed -e 's|/site-lib||; s|use "findlib"|use "findlib.ml"|' \
-	$RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
- echo 'directory = "+findlib"'
- ) > $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib.ml
-mv -f $RPM_BUILD_ROOT%{_libdir}/ocaml/{findlib,ocamlfind}
+sed -i -e 's|/site-lib||' $RPM_BUILD_ROOT%{_libdir}/ocaml/topfind
+ln -sf %{_libdir}/ocaml/topfind $RPM_BUILD_ROOT%{_libdir}/ocaml/ocamlfind
+rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
 cp -a $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib \
 	$RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
 rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.*
+rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib/META
+echo 'directory = "+findlib"' >> $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/META
 echo 'ldconf = "ignore"' >> $RPM_BUILD_ROOT%{_sysconfdir}/ocamlfind.conf
 
 ln -s ../stublibs $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/libexec
