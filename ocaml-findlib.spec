@@ -75,7 +75,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.mli
 	$RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
  echo 'directory = "+findlib"'
  ) > $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib.ml
-rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
+mv -f $RPM_BUILD_ROOT%{_libdir}/ocaml/{findlib,ocamlfind}
 cp -a $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib \
 	$RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
 rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.*
@@ -100,4 +100,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/ocaml/findlib
 %{_libdir}/ocaml/findlib/*.cm[ixa]*
 %{_libdir}/ocaml/findlib/*.a
+%{_libdir}/ocaml/ocamlfind
+%{_libdir}/ocaml/topfind
 %{_mandir}/man3/*
