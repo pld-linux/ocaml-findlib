@@ -2,14 +2,14 @@ Summary:	OCaml module manager
 Summary(pl):	Zarz±dca modu³ów OCamla
 Name:		ocaml-findlib
 Version:	0.8.1
-Release:	5
+Release:	6
 License:	distributable
 Group:		Development/Tools
 Vendor:		Gerd Stolpmann <gerd@gerd-stolpmann.de>
 URL:		http://www.ocaml-programming.de/packages/
 # Source0-md5:	b4643888d1a6626981113e23a92b9154
 Source0:	http://www.ocaml-programming.de/packages/findlib-%{version}.tar.gz
-BuildRequires:	ocaml >= 3.07
+BuildRequires:	ocaml >= 3.08
 BuildRequires:	ocaml-camlp4
 BuildRequires:	ocaml-labltk-devel
 BuildRequires:	m4
