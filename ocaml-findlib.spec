@@ -9,10 +9,11 @@ Vendor:		Gerd Stolpmann <gerd@gerd-stolpmann.de>
 URL:		http://www.ocaml-programming.de/packages/
 # Source0-md5:	b4643888d1a6626981113e23a92b9154
 Source0:	http://www.ocaml-programming.de/packages/findlib-%{version}.tar.gz
+BuildRequires:	m4
+BuildRequires:	ncurses-devel
 BuildRequires:	ocaml >= 3.08
 BuildRequires:	ocaml-camlp4
 BuildRequires:	ocaml-labltk-devel
-BuildRequires:	m4
 %requires_eq	ocaml
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
