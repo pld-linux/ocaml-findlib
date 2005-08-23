@@ -6,9 +6,9 @@ Release:	1
 License:	distributable
 Group:		Development/Tools
 Vendor:		Gerd Stolpmann <gerd@gerd-stolpmann.de>
-URL:		http://www.ocaml-programming.de/packages/
 Source0:	http://www.ocaml-programming.de/packages/findlib-%{version}.tar.gz
 # Source0-md5:	dbfabe1b3677a03bcf238ecccb36d84f
+URL:		http://www.ocaml-programming.de/packages/
 BuildRequires:	m4
 BuildRequires:	ncurses-devel
 BuildRequires:	ocaml >= 3.08
@@ -25,9 +25,9 @@ can be stored.
 
 %description -l pl
 Biblioteka "findlib" udostêpnia metodê zarz±dzania komponentami
-oprogramowania (pakietami) oraz zawiera narzêdzia które ow± metodê
-wspieraj±. Pakiety s± kolekcjami modu³ów w OCamlu, dla których jest
-przechowywana metainformacja.
+oprogramowania (pakietami) oraz zawiera narzêdzia, które ow± metodê
+wspieraj±. Pakiety s± kolekcjami modu³ów w OCamlu, dla których mog±
+byæ przechowywane metainformacje.
 
 %package devel
 Summary:	OCaml module manager
@@ -45,9 +45,9 @@ This package includes libraries and compiled interfaces of findlib.
 
 %description devel -l pl
 Biblioteka "findlib" udostêpnia metodê zarz±dzania komponentami
-oprogramowania (pakietami) oraz zawiera narzêdzia które ow± metodê
-wspieraj±. Pakiety s± kolekcjami modu³ów w OCamlu, dla których jest
-przechowywana metainformacja.
+oprogramowania (pakietami) oraz zawiera narzêdzia, które ow± metodê
+wspieraj±. Pakiety s± kolekcjami modu³ów w OCamlu, dla których mog±
+byæ przechowywane metainformacje.
 
 Ten pakiet zawiera biblioteki i skompilowane interfejsy findliba.
 
