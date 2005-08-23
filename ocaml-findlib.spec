@@ -1,14 +1,14 @@
 Summary:	OCaml module manager
 Summary(pl):	Zarz±dca modu³ów OCamla
 Name:		ocaml-findlib
-Version:	0.8.1
-Release:	6
+Version:	1.0.4
+Release:	1
 License:	distributable
 Group:		Development/Tools
 Vendor:		Gerd Stolpmann <gerd@gerd-stolpmann.de>
 URL:		http://www.ocaml-programming.de/packages/
-# Source0-md5:	b4643888d1a6626981113e23a92b9154
 Source0:	http://www.ocaml-programming.de/packages/findlib-%{version}.tar.gz
+# Source0-md5:	dbfabe1b3677a03bcf238ecccb36d84f
 BuildRequires:	m4
 BuildRequires:	ncurses-devel
 BuildRequires:	ocaml >= 3.08
@@ -68,7 +68,7 @@ mv -f Makefile.tmp Makefile
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install PREFIX=$RPM_BUILD_ROOT
+%{__make} install prefix=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.mli
 
@@ -91,7 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README LICENSE doc/html
+%doc README LICENSE doc/*-html
 %attr(755,root,root) %{_bindir}/*
 %config %{_sysconfdir}/ocamlfind.conf
 %{_libdir}/ocaml/site-lib
@@ -104,4 +104,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/findlib/*.a
 %{_libdir}/ocaml/ocamlfind
 %{_libdir}/ocaml/topfind
-%{_mandir}/man3/*
