@@ -1,9 +1,9 @@
-%define		ocaml_ver	1:3.09.1
+%define		ocaml_ver	1:3.09.2
 Summary:	OCaml module manager
 Summary(pl):	Zarz±dca modu³ów OCamla
 Name:		ocaml-findlib
 Version:	1.1.1
-Release:	3
+Release:	4
 License:	distributable
 Group:		Development/Tools
 Source0:	http://www.ocaml-programming.de/packages/findlib-%{version}.tar.gz
