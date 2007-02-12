@@ -1,6 +1,6 @@
 %define		ocaml_ver	1:3.09.2
 Summary:	OCaml module manager
-Summary(pl):	Zarz±dca modu³ów OCamla
+Summary(pl.UTF-8):   ZarzÄ…dca moduÅ‚Ã³w OCamla
 Name:		ocaml-findlib
 Version:	1.1.1
 Release:	4
@@ -23,15 +23,15 @@ components (packages), and includes tools that support this scheme.
 Packages are collections of OCaml modules for which metainformation
 can be stored.
 
-%description -l pl
-Biblioteka "findlib" udostêpnia metodê zarz±dzania komponentami
-oprogramowania (pakietami) oraz zawiera narzêdzia, które ow± metodê
-wspieraj±. Pakiety s± kolekcjami modu³ów w OCamlu, dla których mog±
-byæ przechowywane metainformacje.
+%description -l pl.UTF-8
+Biblioteka "findlib" udostÄ™pnia metodÄ™ zarzÄ…dzania komponentami
+oprogramowania (pakietami) oraz zawiera narzÄ™dzia, ktÃ³re owÄ… metodÄ™
+wspierajÄ…. Pakiety sÄ… kolekcjami moduÅ‚Ã³w w OCamlu, dla ktÃ³rych mogÄ…
+byÄ‡ przechowywane metainformacje.
 
 %package devel
 Summary:	OCaml module manager
-Summary(pl):	Zarz±dca modu³ów OCamla
+Summary(pl.UTF-8):   ZarzÄ…dca moduÅ‚Ã³w OCamla
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -43,11 +43,11 @@ can be stored.
 
 This package includes libraries and compiled interfaces of findlib.
 
-%description devel -l pl
-Biblioteka "findlib" udostêpnia metodê zarz±dzania komponentami
-oprogramowania (pakietami) oraz zawiera narzêdzia, które ow± metodê
-wspieraj±. Pakiety s± kolekcjami modu³ów w OCamlu, dla których mog±
-byæ przechowywane metainformacje.
+%description devel -l pl.UTF-8
+Biblioteka "findlib" udostÄ™pnia metodÄ™ zarzÄ…dzania komponentami
+oprogramowania (pakietami) oraz zawiera narzÄ™dzia, ktÃ³re owÄ… metodÄ™
+wspierajÄ…. Pakiety sÄ… kolekcjami moduÅ‚Ã³w w OCamlu, dla ktÃ³rych mogÄ…
+byÄ‡ przechowywane metainformacje.
 
 Ten pakiet zawiera biblioteki i skompilowane interfejsy findliba.
 
