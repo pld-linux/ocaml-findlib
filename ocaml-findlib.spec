@@ -1,6 +1,6 @@
 %define		ocaml_ver	1:3.09.2
 Summary:	OCaml module manager
-Summary(pl.UTF-8):   Zarządca modułów OCamla
+Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
 Version:	1.1.1
 Release:	4
@@ -31,7 +31,7 @@ być przechowywane metainformacje.
 
 %package devel
 Summary:	OCaml module manager
-Summary(pl.UTF-8):   Zarządca modułów OCamla
+Summary(pl.UTF-8):	Zarządca modułów OCamla
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
