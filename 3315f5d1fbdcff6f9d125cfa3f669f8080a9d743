@@ -1,0 +1,2 @@
+- added devel subpackage
+- moved *.cm* stuff to %{_libdir}/ocaml/findlib (from site-lib)
