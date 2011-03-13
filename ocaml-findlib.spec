@@ -2,18 +2,19 @@
 Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
-Version:	1.2.4
-Release:	2
+Version:	1.2.6
+Release:	1
 License:	distributable
 Group:		Development/Tools
-Source0:	http://www.ocaml-programming.de/packages/findlib-%{version}.tar.gz
-# Source0-md5:	52cfcacff3e07a94bc3adb977fbb3c07
+Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
+# Source0-md5:	4924c8c3ef1208eb0fa9096c8b8bb72f
 URL:		http://www.ocaml-programming.de/packages/
 BuildRequires:	m4
 BuildRequires:	ncurses-devel
 BuildRequires:	ocaml >= %{ocaml_ver}
 BuildRequires:	ocaml-camlp4
 BuildRequires:	ocaml-labltk-devel
+BuildRequires:	sed >= 4.0
 %requires_eq	ocaml
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -60,26 +61,25 @@ Ten pakiet zawiera biblioteki i skompilowane interfejsy findliba.
 	-mandir %{_mandir} \
 	-config %{_sysconfdir}/ocamlfind.conf
 
-sed -e 's/-g//' Makefile > Makefile.tmp
-mv -f Makefile.tmp Makefile
+sed -i -e 's/-g//' Makefile
 
 %{__make} -j1 all opt
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install prefix=$RPM_BUILD_ROOT
+%{__make} install \
+	prefix=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.mli
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.mli
 
 # in PLD only META files are stored in site-lib/pkg
 sed -i -e 's|/site-lib||' $RPM_BUILD_ROOT%{_libdir}/ocaml/topfind
 ln -sf %{_libdir}/ocaml/topfind $RPM_BUILD_ROOT%{_libdir}/ocaml/ocamlfind
-rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
 cp -a $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib \
 	$RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
-rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.*
-rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib/META
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.*
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib/META
 echo 'directory = "+findlib"' >> $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/META
 echo 'ldconf = "ignore"' >> $RPM_BUILD_ROOT%{_sysconfdir}/ocamlfind.conf
 
@@ -92,10 +92,14 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc doc/README LICENSE doc/*-html
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/ocamlfind
+%attr(755,root,root) %{_bindir}/safe_camlp4
 %config %{_sysconfdir}/ocamlfind.conf
 %{_libdir}/ocaml/site-lib
-%{_mandir}/man[15]/*
+%{_mandir}/man1/ocamlfind.1*
+%{_mandir}/man5/META.5*
+%{_mandir}/man5/findlib.conf.5*
+%{_mandir}/man5/site-lib.5*
 
 %files devel
 %defattr(644,root,root,755)
