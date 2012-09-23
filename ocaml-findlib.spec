@@ -80,7 +80,7 @@ cp -a $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib \
 	$RPM_BUILD_ROOT%{_libdir}/ocaml/findlib
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.*
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib/META
-echo 'directory = "+findlib"' >> $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/META
+echo 'directory = "+findlib"' >> $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/META
 echo 'ldconf = "ignore"' >> $RPM_BUILD_ROOT%{_sysconfdir}/ocamlfind.conf
 
 ln -s ../stublibs $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/libexec
@@ -95,7 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ocamlfind
 %attr(755,root,root) %{_bindir}/safe_camlp4
 %config %{_sysconfdir}/ocamlfind.conf
-%{_libdir}/ocaml/site-lib
+%{_libdir}/ocaml/site-lib/*
 %{_mandir}/man1/ocamlfind.1*
 %{_mandir}/man5/META.5*
 %{_mandir}/man5/findlib.conf.5*
