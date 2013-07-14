@@ -3,7 +3,7 @@ Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
 Version:	1.4
-Release:	1
+Release:	2
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
@@ -132,6 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/findlib/Makefile.config
 %{_libdir}/ocaml/findlib/*.cm[ixa]*
 %{_libdir}/ocaml/findlib/*.a
+%dir %{_libdir}/ocaml/num-top
 %{_libdir}/ocaml/num-top/*.cm[ia]
 %{_libdir}/ocaml/ocamlfind
 %{_libdir}/ocaml/topfind
