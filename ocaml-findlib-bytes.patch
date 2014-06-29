@@ -1,0 +1,11 @@
+--- findlib-1.5.1/configure.orig	2014-06-25 12:23:05.000000000 +0200
++++ findlib-1.5.1/configure	2014-06-28 21:18:46.656078343 +0200
+@@ -489,7 +489,7 @@
+ 
+ # bytes?
+ 
+-if [ -f "${ocaml_core_stdlib}/bytes.cmi" ]; then
++if [ -f "${ocaml_core_stdlib}/bytes.cmi" -o -f "${ocaml_core_stdlib}/bytes/bytes.cmi" ]; then
+     echo "bytes: found, installing fake library"
+     lbytes="bytes"
+     cbytes=0

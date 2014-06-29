@@ -2,16 +2,19 @@
 Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
-Version:	1.4.1
+Version:	1.5.1
 Release:	1
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
-# Source0-md5:	5d258142e9a7db98bb3553dbca739af8
+# Source0-md5:	6bf0d0da66104bc8bdcb3018bd13a202
+Patch0:		%{name}-destdir.patch
+Patch1:		%{name}-bytes.patch
 URL:		http://www.ocaml-programming.de/packages/
 BuildRequires:	m4
 BuildRequires:	ncurses-devel
 BuildRequires:	ocaml >= %{ocaml_ver}
+BuildRequires:	ocaml-bytes-devel
 BuildRequires:	ocaml-camlp4
 BuildRequires:	ocaml-labltk-devel
 BuildRequires:	sed >= 4.0
@@ -35,6 +38,7 @@ Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	ocaml-bytes-devel
 
 %description devel
 The "findlib" library provides a scheme to manage reusable software
@@ -54,12 +58,15 @@ Ten pakiet zawiera biblioteki i skompilowane interfejsy findliba.
 
 %prep
 %setup -q -n findlib-%{version}
+%patch0 -p1
+%patch1 -p1
 
 %build
 ./configure \
 	-bindir %{_bindir} \
 	-mandir %{_mandir} \
-	-config %{_sysconfdir}/ocamlfind.conf
+	-config %{_sysconfdir}/ocamlfind.conf \
+	-with-toolbox
 
 sed -i -e 's/-g//' Makefile
 
@@ -72,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 	prefix=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.mli
+
+# fake, the real one is already provided by ocaml-bytes
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/bytes/META
 
 # in PLD only META files are stored in site-lib/pkg
 sed -i -e 's|/site-lib||' $RPM_BUILD_ROOT%{_libdir}/ocaml/topfind
@@ -103,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ocamlfind
 %attr(755,root,root) %{_bindir}/safe_camlp4
 %config %{_sysconfdir}/ocamlfind.conf
+%dir %{_libdir}/ocaml/findlib
+%attr(755,root,root) %{_libdir}/ocaml/findlib/make_wizard
+%{_libdir}/ocaml/findlib/make_wizard.pattern
 %{_libdir}/ocaml/site-lib/findlib
 # symlinks
 %{_libdir}/ocaml/site-lib/libexec
@@ -128,7 +141,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%dir %{_libdir}/ocaml/findlib
 %{_libdir}/ocaml/findlib/Makefile.config
 %{_libdir}/ocaml/findlib/*.cm[ixa]*
 %{_libdir}/ocaml/findlib/*.a
