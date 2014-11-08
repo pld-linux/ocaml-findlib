@@ -1,21 +1,20 @@
-%define		ocaml_ver	1:3.09.2
+%define		ocaml_ver	1:4.02
 Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
-Version:	1.5.3
+Version:	1.5.5
 Release:	1
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
-# Source0-md5:	687b9dfee7d9d380d2eabe62bab67f09
+# Source0-md5:	703eae112f9e912507c3a2f8d8c48498
 Patch0:		%{name}-bytes.patch
 URL:		http://www.ocaml-programming.de/packages/
 BuildRequires:	m4
 BuildRequires:	ncurses-devel
 BuildRequires:	ocaml >= %{ocaml_ver}
-BuildRequires:	ocaml-bytes-devel
 BuildRequires:	ocaml-camlp4
-BuildRequires:	ocaml-labltk-devel
+BuildRequires:	ocaml-labltk
 BuildRequires:	sed >= 4.0
 %requires_eq	ocaml
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -37,7 +36,6 @@ Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ocaml-bytes-devel
 
 %description devel
 The "findlib" library provides a scheme to manage reusable software
@@ -78,8 +76,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.mli
 
-# fake, the real one is already provided by ocaml-bytes
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/bytes/META
+# now provided by ocaml-labltk.spec
+%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/labltk
+# now provided by ocaml-dbm.spec (might not exist if building without ocaml-dbm installed)
+%{__rm} -rf $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/dbm
 
 # in PLD only META files are stored in site-lib/pkg
 sed -i -e 's|/site-lib||' $RPM_BUILD_ROOT%{_libdir}/ocaml/topfind
@@ -120,11 +120,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/site-lib/stublibs
 # META files for base ocaml packages
 %{_libdir}/ocaml/site-lib/bigarray
-%{_libdir}/ocaml/site-lib/camlp4
-%{_libdir}/ocaml/site-lib/dbm
+%{_libdir}/ocaml/site-lib/bytes
+%{_libdir}/ocaml/site-lib/compiler-libs/META
 %{_libdir}/ocaml/site-lib/dynlink
 %{_libdir}/ocaml/site-lib/graphics
-%{_libdir}/ocaml/site-lib/labltk
 %{_libdir}/ocaml/site-lib/num
 %{_libdir}/ocaml/site-lib/num-top
 %{_libdir}/ocaml/site-lib/ocamlbuild
@@ -132,6 +131,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/site-lib/str
 %{_libdir}/ocaml/site-lib/threads
 %{_libdir}/ocaml/site-lib/unix
+# camlp4 4.02 doesn't provide its META itself
+%{_libdir}/ocaml/site-lib/camlp4
 %{_mandir}/man1/ocamlfind.1*
 %{_mandir}/man5/META.5*
 %{_mandir}/man5/findlib.conf.5*
