@@ -121,7 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 # META files for base ocaml packages
 %{_libdir}/ocaml/site-lib/bigarray
 %{_libdir}/ocaml/site-lib/bytes
-%{_libdir}/ocaml/site-lib/compiler-libs/META
+%{_libdir}/ocaml/site-lib/compiler-libs
 %{_libdir}/ocaml/site-lib/dynlink
 %{_libdir}/ocaml/site-lib/graphics
 %{_libdir}/ocaml/site-lib/num
