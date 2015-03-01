@@ -4,6 +4,7 @@
 
 %ifarch x32
 %undefine	with_opt
+%define		no_install_post_strip	1
 %endif
 
 %define		ocaml_ver	1:4.02
@@ -11,7 +12,7 @@ Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
 Version:	1.5.5
-Release:	5
+Release:	6
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
@@ -154,6 +155,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with opt}
 %{_libdir}/ocaml/findlib/*.[ao]
 %{_libdir}/ocaml/findlib/*.cmxa
+%{_libdir}/ocaml/findlib/*.cmxs
 %endif
 %dir %{_libdir}/ocaml/num-top
 %{_libdir}/ocaml/num-top/*.cm[ia]
