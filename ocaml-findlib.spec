@@ -6,7 +6,7 @@
 %undefine	with_opt
 %endif
 
-%if %{without opt}
+%if !%{with opt}
 %define		no_install_post_strip	1
 %endif
 
@@ -15,7 +15,7 @@ Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
 Version:	1.5.5
-Release:	6
+Release:	7
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
