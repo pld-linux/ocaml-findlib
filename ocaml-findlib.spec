@@ -1,9 +1,17 @@
+#
+# Conditional build:
+%bcond_without	opt		# build opt
+
+%ifarch x32
+%undefine	with_opt
+%endif
+
 %define		ocaml_ver	1:4.02
 Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
 Version:	1.5.5
-Release:	4
+Release:	5
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
@@ -66,7 +74,7 @@ Ten pakiet zawiera biblioteki i skompilowane interfejsy findliba.
 
 sed -i -e 's/-g//' Makefile
 
-%{__make} -j1 all opt
+%{__make} -j1 all %{?with_opt:opt}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -141,8 +149,12 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %{_libdir}/ocaml/findlib/Makefile.config
-%{_libdir}/ocaml/findlib/*.cm[ixa]*
-%{_libdir}/ocaml/findlib/*.a
+%{_libdir}/ocaml/findlib/*.cm[xi]
+%{_libdir}/ocaml/findlib/*.cma
+%if %{with opt}
+%{_libdir}/ocaml/findlib/*.[ao]
+%{_libdir}/ocaml/findlib/*.cmxa
+%endif
 %dir %{_libdir}/ocaml/num-top
 %{_libdir}/ocaml/num-top/*.cm[ia]
 %{_libdir}/ocaml/ocamlfind
