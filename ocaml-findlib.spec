@@ -8,6 +8,8 @@
 
 %if !%{with opt}
 %define		no_install_post_strip	1
+# debug package strips binaries which renders ocamlfind broken
+%define		_enable_debug_packages	0
 %endif
 
 %define		ocaml_ver	1:4.02
@@ -15,7 +17,7 @@ Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
 Version:	1.5.5
-Release:	7
+Release:	8
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
