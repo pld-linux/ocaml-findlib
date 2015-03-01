@@ -4,6 +4,9 @@
 
 %ifarch x32
 %undefine	with_opt
+%endif
+
+%if %{without opt}
 %define		no_install_post_strip	1
 %endif
 
