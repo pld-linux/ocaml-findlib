@@ -11,7 +11,7 @@ Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
 Version:	1.5.5
-Release:	9
+Release:	10
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
@@ -127,7 +127,13 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/ocamlfind.conf
 %dir %{_libdir}/ocaml/findlib
 %attr(755,root,root) %{_libdir}/ocaml/findlib/make_wizard
+%{_libdir}/ocaml/findlib/Makefile.config
 %{_libdir}/ocaml/findlib/make_wizard.pattern
+%{_libdir}/ocaml/findlib/findlib.cma
+%{_libdir}/ocaml/findlib/findlib_top.cma
+%if %{with ocaml_opt}
+%attr(755,root,root) %{_libdir}/ocaml/findlib/findlib.cmxs
+%endif
 %{_libdir}/ocaml/site-lib/findlib
 # symlinks
 %{_libdir}/ocaml/site-lib/libexec
@@ -154,15 +160,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_libdir}/ocaml/findlib/Makefile.config
-%{_libdir}/ocaml/findlib/*.cm[xi]
-%{_libdir}/ocaml/findlib/*.cma
+%{_libdir}/ocaml/findlib/findlib.cmi
+%{_libdir}/ocaml/findlib/fl_*.cmi
+%{_libdir}/ocaml/findlib/topfind.cmi
 %if %{with ocaml_opt}
-%{_libdir}/ocaml/findlib/*.[ao]
-%{_libdir}/ocaml/findlib/*.cmxa
-%{_libdir}/ocaml/findlib/*.cmxs
+%{_libdir}/ocaml/findlib/findlib.a
+%{_libdir}/ocaml/findlib/findlib.cmxa
 %endif
 %dir %{_libdir}/ocaml/num-top
-%{_libdir}/ocaml/num-top/*.cm[ia]
+%{_libdir}/ocaml/num-top/num_top.cma
+%{_libdir}/ocaml/num-top/num_top*.cmi
 %{_libdir}/ocaml/ocamlfind
 %{_libdir}/ocaml/topfind
