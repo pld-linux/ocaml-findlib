@@ -10,13 +10,14 @@
 Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
-Version:	1.5.5
-Release:	11
+Version:	1.6.2
+Release:	1
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
-# Source0-md5:	703eae112f9e912507c3a2f8d8c48498
+# Source0-md5:	530ff275d6b96e140f0d3a03ed14b68e
 Patch0:		%{name}-bytes.patch
+Patch1:		%{name}-man.patch
 URL:		http://www.ocaml-programming.de/packages/
 BuildRequires:	m4
 BuildRequires:	ncurses-devel
@@ -70,6 +71,7 @@ Ten pakiet zawiera biblioteki i skompilowane interfejsy findliba.
 %prep
 %setup -q -n findlib-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 ./configure \
@@ -130,9 +132,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/findlib/Makefile.config
 %{_libdir}/ocaml/findlib/make_wizard.pattern
 %{_libdir}/ocaml/findlib/findlib.cma
+%{_libdir}/ocaml/findlib/findlib_dynload.cma
 %{_libdir}/ocaml/findlib/findlib_top.cma
 %if %{with ocaml_opt}
 %attr(755,root,root) %{_libdir}/ocaml/findlib/findlib.cmxs
+%attr(755,root,root) %{_libdir}/ocaml/findlib/findlib_dynload.cmxs
 %endif
 %{_libdir}/ocaml/site-lib/findlib
 # symlinks
@@ -147,6 +151,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/site-lib/num
 %{_libdir}/ocaml/site-lib/num-top
 %{_libdir}/ocaml/site-lib/ocamlbuild
+%{_libdir}/ocaml/site-lib/ocamldoc
 %{_libdir}/ocaml/site-lib/stdlib
 %{_libdir}/ocaml/site-lib/str
 %{_libdir}/ocaml/site-lib/threads
@@ -166,6 +171,8 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with ocaml_opt}
 %{_libdir}/ocaml/findlib/findlib.a
 %{_libdir}/ocaml/findlib/findlib.cmxa
+%{_libdir}/ocaml/findlib/findlib_dynload.a
+%{_libdir}/ocaml/findlib/findlib_dynload.cmxa
 %endif
 %dir %{_libdir}/ocaml/num-top
 %{_libdir}/ocaml/num-top/num_top.cma
