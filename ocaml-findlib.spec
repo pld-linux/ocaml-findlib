@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_without	ocaml_opt		# build opt
+%bcond_without	tk      		# build without tk support
 
 %ifnarch %{ix86} %{x8664} arm aarch64 ppc sparc sparcv9 
 %undefine	with_ocaml_opt
@@ -11,7 +12,7 @@ Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
 Version:	1.6.2
-Release:	1
+Release:	2
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
@@ -23,7 +24,7 @@ BuildRequires:	m4
 BuildRequires:	ncurses-devel
 BuildRequires:	ocaml >= %{ocaml_ver}
 BuildRequires:	ocaml-camlp4
-BuildRequires:	ocaml-labltk-devel
+%{?with_tk:BuildRequires:	ocaml-labltk-devel}
 BuildRequires:	sed >= 4.0
 %requires_eq	ocaml
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -128,9 +129,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/safe_camlp4
 %config %{_sysconfdir}/ocamlfind.conf
 %dir %{_libdir}/ocaml/findlib
+%if %{with tk}
 %attr(755,root,root) %{_libdir}/ocaml/findlib/make_wizard
-%{_libdir}/ocaml/findlib/Makefile.config
 %{_libdir}/ocaml/findlib/make_wizard.pattern
+%endif
+%{_libdir}/ocaml/findlib/Makefile.config
 %{_libdir}/ocaml/findlib/findlib.cma
 %{_libdir}/ocaml/findlib/findlib_dynload.cma
 %{_libdir}/ocaml/findlib/findlib_top.cma
@@ -139,9 +142,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/ocaml/findlib/findlib_dynload.cmxs
 %endif
 %{_libdir}/ocaml/site-lib/findlib
-# symlinks
-%{_libdir}/ocaml/site-lib/libexec
-%{_libdir}/ocaml/site-lib/stublibs
 # META files for base ocaml packages
 %{_libdir}/ocaml/site-lib/bigarray
 %{_libdir}/ocaml/site-lib/bytes
