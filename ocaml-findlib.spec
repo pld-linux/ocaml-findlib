@@ -7,7 +7,7 @@
 %undefine	with_ocaml_opt
 %endif
 
-%define		ocaml_ver	1:4.02
+%define		ocaml_ver	1:4.04
 Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
@@ -161,6 +161,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/site-lib/num
 %{_libdir}/ocaml/site-lib/num-top
 %{_libdir}/ocaml/site-lib/ocamldoc
+%ifarch %{x8664}
+%{_libdir}/ocaml/site-lib/raw_spacetime
+%endif
 %{_libdir}/ocaml/site-lib/stdlib
 %{_libdir}/ocaml/site-lib/str
 %{_libdir}/ocaml/site-lib/threads
