@@ -3,7 +3,7 @@
 %bcond_without	ocaml_opt		# build opt
 %bcond_without	tk      		# build without tk support
 
-%ifnarch %{ix86} %{x8664} arm aarch64 ppc sparc sparcv9 
+%ifnarch %{ix86} %{x8664} %{arm} aarch64 ppc sparc sparcv9
 %undefine	with_ocaml_opt
 %endif
 
@@ -11,14 +11,13 @@
 Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
-Version:	1.6.2
-Release:	3
+Version:	1.7.3
+Release:	1
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
-# Source0-md5:	530ff275d6b96e140f0d3a03ed14b68e
+# Source0-md5:	7d57451218359f7b7dfc969e3684a6da
 Patch0:		%{name}-bytes.patch
-Patch1:		%{name}-man.patch
 URL:		http://www.ocaml-programming.de/packages/
 BuildRequires:	m4
 BuildRequires:	ncurses-devel
@@ -27,6 +26,7 @@ BuildRequires:	ocaml-camlp4
 %{?with_tk:BuildRequires:	ocaml-labltk-devel}
 BuildRequires:	sed >= 4.0
 %requires_eq	ocaml
+Conflicts:	ocaml-curses < 1.0.3-13
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %if %{without ocaml_opt}
@@ -72,7 +72,6 @@ Ten pakiet zawiera biblioteki i skompilowane interfejsy findliba.
 %prep
 %setup -q -n findlib-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 ./configure \
@@ -93,10 +92,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/*.mli
 
-# now provided by ocaml-labltk.spec (might not exist if building without ocaml-labltk installed)
-%{__rm} -rf $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/labltk
 # now provided by ocaml-dbm.spec (might not exist if building without ocaml-dbm installed)
 %{__rm} -rf $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/dbm
+# now provided by ocaml-labltk.spec (might not exist if building without ocaml-labltk installed)
+%{__rm} -rf $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/labltk
+# now provided by ocaml-ocamlbuild.spec (might not exist if building without ocaml-ocamlbuild installed)
+%{__rm} -rf $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/ocamlbuild
 
 # in PLD only META files are stored in site-lib/pkg
 sed -i -e 's|/site-lib||' $RPM_BUILD_ROOT%{_libdir}/ocaml/topfind
@@ -122,6 +123,11 @@ ln -sf ../stublibs $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/stublibs
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%pretrans
+# handle ocaml-findlib-1.6.2-{2,3} + ocaml-curses < 1.0.3-13 mess
+[ -L %{_libdir}/ocaml/site-lib/libexec ] || rmdir %{_libdir}/ocaml/site-lib/libexec || :
+[ -L %{_libdir}/ocaml/site-lib/stublibs ] || rmdir %{_libdir}/ocaml/site-lib/stublibs || :
+
 %files
 %defattr(644,root,root,755)
 %doc doc/README LICENSE doc/*-html
@@ -140,8 +146,12 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with ocaml_opt}
 %attr(755,root,root) %{_libdir}/ocaml/findlib/findlib.cmxs
 %attr(755,root,root) %{_libdir}/ocaml/findlib/findlib_dynload.cmxs
+%attr(755,root,root) %{_libdir}/ocaml/findlib/findlib_top.cmxs
 %endif
 %{_libdir}/ocaml/site-lib/findlib
+# symlinks
+%{_libdir}/ocaml/site-lib/libexec
+%{_libdir}/ocaml/site-lib/stublibs
 # META files for base ocaml packages
 %{_libdir}/ocaml/site-lib/bigarray
 %{_libdir}/ocaml/site-lib/bytes
@@ -150,7 +160,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/site-lib/graphics
 %{_libdir}/ocaml/site-lib/num
 %{_libdir}/ocaml/site-lib/num-top
-%{_libdir}/ocaml/site-lib/ocamlbuild
 %{_libdir}/ocaml/site-lib/ocamldoc
 %{_libdir}/ocaml/site-lib/stdlib
 %{_libdir}/ocaml/site-lib/str
@@ -173,6 +182,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/findlib/findlib.cmxa
 %{_libdir}/ocaml/findlib/findlib_dynload.a
 %{_libdir}/ocaml/findlib/findlib_dynload.cmxa
+%{_libdir}/ocaml/findlib/findlib_top.a
+%{_libdir}/ocaml/findlib/findlib_top.cmxa
 %endif
 %dir %{_libdir}/ocaml/num-top
 %{_libdir}/ocaml/num-top/num_top.cma
