@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	ocaml_opt		# build opt
-%bcond_without	tk      		# build without tk support
+%bcond_without	tk			# build without tk support
 
 %ifnarch %{ix86} %{x8664} %{arm} aarch64 ppc sparc sparcv9
 %undefine	with_ocaml_opt
@@ -11,19 +11,20 @@
 Summary:	OCaml module manager
 Summary(pl.UTF-8):	Zarządca modułów OCamla
 Name:		ocaml-findlib
-Version:	1.7.3
+Version:	1.9.1
 Release:	1
 License:	distributable
 Group:		Development/Tools
 Source0:	http://download.camlcity.org/download/findlib-%{version}.tar.gz
-# Source0-md5:	7d57451218359f7b7dfc969e3684a6da
-Patch0:		%{name}-bytes.patch
-URL:		http://www.ocaml-programming.de/packages/
+# Source0-md5:	65e6dc9b305ccbed1267275fe180f538
+Patch0:		labltk.patch
+URL:		http://projects.camlcity.org/projects/findlib.html
 BuildRequires:	m4
 BuildRequires:	ncurses-devel
 BuildRequires:	ocaml >= %{ocaml_ver}
 BuildRequires:	ocaml-camlp4
 %{?with_tk:BuildRequires:	ocaml-labltk-devel}
+BuildRequires:	ocaml-ocamldoc-devel
 BuildRequires:	sed >= 4.0
 %requires_eq	ocaml
 Conflicts:	ocaml-curses < 1.0.3-13
@@ -108,12 +109,6 @@ install -d $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib/META \
 	$RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib
 echo 'directory = "+findlib"' >> $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/findlib/META
-%{__mv} $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/num-top \
-	$RPM_BUILD_ROOT%{_libdir}/ocaml/num-top
-install -d $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/num-top
-%{__mv} $RPM_BUILD_ROOT%{_libdir}/ocaml/num-top/META \
-	$RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/num-top
-echo 'directory = "+findlib"' >> $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/num-top/META
 
 echo 'ldconf = "ignore"' >> $RPM_BUILD_ROOT%{_sysconfdir}/ocamlfind.conf
 
@@ -140,6 +135,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/findlib/make_wizard.pattern
 %endif
 %{_libdir}/ocaml/findlib/Makefile.config
+%{_libdir}/ocaml/findlib/Makefile.packages
 %{_libdir}/ocaml/findlib/findlib.cma
 %{_libdir}/ocaml/findlib/findlib_dynload.cma
 %{_libdir}/ocaml/findlib/findlib_top.cma
@@ -157,13 +153,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/site-lib/bytes
 %{_libdir}/ocaml/site-lib/compiler-libs
 %{_libdir}/ocaml/site-lib/dynlink
-%{_libdir}/ocaml/site-lib/graphics
-%{_libdir}/ocaml/site-lib/num
-%{_libdir}/ocaml/site-lib/num-top
 %{_libdir}/ocaml/site-lib/ocamldoc
-%ifarch %{x8664}
-%{_libdir}/ocaml/site-lib/raw_spacetime
-%endif
 %{_libdir}/ocaml/site-lib/stdlib
 %{_libdir}/ocaml/site-lib/str
 %{_libdir}/ocaml/site-lib/threads
@@ -188,8 +178,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ocaml/findlib/findlib_top.a
 %{_libdir}/ocaml/findlib/findlib_top.cmxa
 %endif
-%dir %{_libdir}/ocaml/num-top
-%{_libdir}/ocaml/num-top/num_top.cma
-%{_libdir}/ocaml/num-top/num_top*.cmi
 %{_libdir}/ocaml/ocamlfind
 %{_libdir}/ocaml/topfind

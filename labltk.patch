@@ -1,0 +1,11 @@
+--- findlib-1.9.1/configure~	2021-03-16 12:43:00.000000000 +0100
++++ findlib-1.9.1/configure	2021-03-18 09:51:26.415095066 +0100
+@@ -526,7 +526,7 @@
+     have_str=0
+ fi
+ 
+-if check_library labltk 'normal since 4.02' labltk/labtk.cma; then
++if check_library labltk 'normal since 4.02' labltk/labltk.cma; then
+     have_labltk=1
+ else
+     have_labltk=0
