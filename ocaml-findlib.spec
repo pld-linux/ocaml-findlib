@@ -96,6 +96,8 @@ rm -rf $RPM_BUILD_ROOT
 
 # now provided by ocaml-dbm.spec (might not exist if building without ocaml-dbm installed)
 %{__rm} -rf $RPM_BUILD_ROOT%{_libdir}/ocaml/dbm
+# now provided by ocaml-graphics
+%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/ocaml/graphics
 # now provided by ocaml-labltk.spec (might not exist if building without ocaml-labltk installed)
 %{__rm} -rf $RPM_BUILD_ROOT%{_libdir}/ocaml/labltk
 # now provided by ocaml-ocamlbuild.spec (might not exist if building without ocaml-ocamlbuild installed)
@@ -119,6 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/ocaml/findlib/make_wizard
 %{_libdir}/ocaml/findlib/make_wizard.pattern
 %endif
+%{_libdir}/ocaml/findlib/META
 %{_libdir}/ocaml/findlib/Makefile.config
 %{_libdir}/ocaml/findlib/Makefile.packages
 %{_libdir}/ocaml/findlib/findlib.cma
@@ -129,7 +132,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/ocaml/findlib/findlib_dynload.cmxs
 %attr(755,root,root) %{_libdir}/ocaml/findlib/findlib_top.cmxs
 %endif
-%{_libdir}/ocaml/findlib
 # META files for base ocaml packages
 %{_libdir}/ocaml/bigarray
 %{_libdir}/ocaml/bytes
